@@ -1,0 +1,42 @@
+---
+title: "Practical_2_Data_Frames_and_Plots/prac2_exercises.qmd - general practice exercises"
+author: "Lizzie"
+editor: visual
+---
+
+```{r}
+
+bird_migration_selected <- bird_migration_sites |>
+  select(
+    Site,
+    winterLongitude,
+    winterLatitude,
+    pslon,
+    pslat,
+    iblon,
+    iblat,
+    awestlon,
+    awestlat
+  ) |>
+  distinct() |>
+  rename(
+    Winter_Longitude = winterLongitude,
+    Winter_Latitude = winterLatitude,
+    Stopover_Longitude = pslon,
+    Stopover_Latitude = pslat,
+    Iberian_Longitude = iblon,
+    Iberian_Latitude = iblat,
+    Westmost_Longitude = awestlon,
+    Westmost_Latitude = awestlat
+  )
+
+gt(head(bird_migration_selected))
+```
+
+```{r}
+y <- 12
+print(y == 7)
+print(y < 15)
+print(y > 20)
+print( y <= 12)
+```
