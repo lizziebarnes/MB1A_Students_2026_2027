@@ -1,7 +1,11 @@
 ---
 title: "Practical_2_Data_Frames_and_Plots/worked_example.qmd - worked example"
 author: "Lizzie"
-editor: visual
+ed
+---
+
+---
+itor: visual
 ---
 
 ```{r}
@@ -163,6 +167,123 @@ gt(bird_breeding_exc)
 ```
 
 ```{r}
+bird_migration_exc <- bird_migration_selected |>
+  filter(Site != "Spain")
+
+gt(head(bird_migration_exc))
+```
+
+```{r}
+bird_migration_grouped <- bird_migration_exc |> group_by(Site)
+glimpse(bird_migration_grouped)
+```
+
+```{r}
+lat_df <- bird_migration_grouped |>
+  summarise(Highest_Lat_Stopover = max(Stopover_Latitude, na.rm = TRUE))
+
+gt(lat_df)
+```
+
+```{r}
+lat_df <- bird_migration_grouped |>
+  summarise(
+    Highest_Lat_Stopover = max(Stopover_Latitude, na.rm = TRUE),
+    Lowest_Lat_Stopover = min(Stopover_Latitude, na.rm = TRUE),
+    Mean_Lat_Stopover = mean(Stopover_Latitude, na.rm = TRUE),
+    Highest_Lat_Winter = max(Winter_Latitude, na.rm = TRUE),
+    Lowest_Lat_Winter = min(Winter_Latitude, na.rm = TRUE),
+    Mean_Lat_Winter = mean(Winter_Latitude, na.rm = TRUE)
+  )
+
+gt(lat_df)
+```
+
+```{r}
+bird_migration_grouped <- bird_migration_exc |> group_by(Site)
+
+bird_migration_summary <- bird_migration_grouped |>
+  summarise(
+    Stopover_Longitude = median(Stopover_Longitude, na.rm = TRUE),
+    Stopover_Latitude = median(Stopover_Latitude, na.rm = TRUE),
+    Iberian_Longitude = median(Iberian_Longitude, na.rm = TRUE),
+    Iberian_Latitude = median(Iberian_Latitude, na.rm = TRUE),
+    Westmost_Longitude = median(Westmost_Longitude, na.rm = TRUE),
+    Westmost_Latitude = median(Westmost_Latitude, na.rm = TRUE),
+    Winter_Longitude = median(Winter_Longitude, na.rm = TRUE),
+    Winter_Latitude = median(Winter_Latitude, na.rm = TRUE)
+  )
+gt(bird_migration_summary)
+```
+
+```{r}
+df_dept <- read_csv("data/depts.csv")
+df_score <- read_csv("data/scores.csv")
+gt(df_dept)
+
+```
+
+```{r}
+gt(df_score)
+```
+
+```{r}
+full_join_example <- full_join(df_dept, df_score)
+gt(full_join_example)
+```
+
+```{r}
+left_join_example <- left_join(df_dept, df_score)
+gt(left_join_example)
+```
+
+```{r}
+right_join_example <- right_join(df_dept, df_score)
+gt(right_join_example)
+
+```
+
+```{r}
+bird_breeding_selected <- bird_breeding_sites |>
+  select(Site, Longitude, Latitude) |>
+  distinct() |>
+  rename(Breeding_Longitude = Longitude, Breeding_Latitude = Latitude)
+
+gt(bird_breeding_selected)
+```
+
+```{r}
+bird_migration_selected <- bird_migration_sites |>
+  select(
+    Site,
+    winterLongitude,
+    winterLatitude,
+    pslon,
+    pslat,
+    iblon,
+    iblat,
+    awestlon,
+    awestlat
+  ) |>
+  distinct() |>
+  rename(
+    Winter_Longitude = winterLongitude,
+    Winter_Latitude = winterLatitude,
+    Stopover_Longitude = pslon,
+    Stopover_Latitude = pslat,
+    Iberian_Longitude = iblon,
+    Iberian_Latitude = iblat,
+    Westmost_Longitude = awestlon,
+    Westmost_Latitude = awestlat
+  )
+
+gt(head(bird_migration_selected))
+```
+
+```{r}
+bird_breeding_exc <- bird_breeding_selected |>
+  filter(Site != "Spain")
+gt(bird_breeding_exc)
 bird_migration_exc <- bird_migration_selected |>
   filter(Site != "Spain")
 

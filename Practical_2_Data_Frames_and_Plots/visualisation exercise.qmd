@@ -1,0 +1,7 @@
+---
+title: "Practical_2_Data_Frames_and_Plots/visualisation_exercise.qmd - visualisation exercise"
+editor: visual
+---
+
+```         
+```
